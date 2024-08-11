@@ -1502,20 +1502,25 @@ export class News extends Component {
         loading: false
     }
   }
+
+  componentDidMount(){
+     console.log("Componenet");
+     let url = "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=f6b131a2ca424ba6a53c3d2fb734f925";
+     let data = await fetch(url);
+  }
   render() {
+    console.log("render");
     return (
       <div className='container my-3 mb-6'>
             <h2>MyNews - HeadLines</h2>
+
             <div className="row">
-                <div className="col-md-3">
-                    <NewsItem title = "My Title" description = "My description" img = "https://cdn.punchng.com/wp-content/uploads/2023/05/06003853/Abayomi-Ajayi.jpg"/>
-                    </div>
-                <div className="col-md-3">
-                    <NewsItem title = "My Title" description = "My description"/>
+            {this.state.articles.map((element)=>{
+                return <div className="col-md-3" key = {element.url}>
+                <NewsItem  title = {element.title.slice(0,45)} description = {element.description.slice(0,88)} img = {element.urlToImage} newsURL = {element.url}/>
                 </div>
-                <div className="col-md-3">
-                    <NewsItem title = "My Title" description = "My description"/>
-                </div>            
+            })}
+
             </div>
       </div>
     )
